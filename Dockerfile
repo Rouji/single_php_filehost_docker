@@ -3,6 +3,7 @@ FROM alpine:3.14
 USER root
 RUN apk add git nginx php8-fpm php8-fileinfo supervisor
 RUN git clone https://github.com/Rouji/single_php_filehost.git /srv/single_php_filehost
+RUN cd /srv/single_php_filehost; git reset --hard ecebb86
 RUN mkdir /srv/single_php_filehost/files
 RUN chown -R nginx:nobody /srv/single_php_filehost
 RUN chmod -R u=rwX,g=,o= /srv/single_php_filehost
