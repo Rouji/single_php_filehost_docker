@@ -6,6 +6,7 @@
 [ -z "$UPLOAD_TIMEOUT" ] && UPLOAD_TIMEOUT=300
 [ -z "$ID_LENGTH" ]      && ID_LENGTH=3
 [ -z "$ADMIN_EMAIL" ]    && ADMIN_EMAIL="admin@example.com"
+[ -z "$AUTO_FILE_EXT" ] && AUTO_FILE_EXT=false
 
 sed -i 's/\(server_name\).*;/\1 '${SERVER_NAME}';/' /etc/nginx/http.d/single_php_filehost.conf
 
@@ -15,6 +16,7 @@ sed -i 's/\(MAX_FILEAGE=\).*;/\1'${MAX_FILEAGE}';/' /srv/single_php_filehost/ind
 sed -i 's/\(UPLOAD_TIMEOUT=\).*;/\1'${UPLOAD_TIMEOUT}';/' /srv/single_php_filehost/index.php
 sed -i 's/\(ID_LENGTH=\).*;/\1'${ID_LENGTH}';/' /srv/single_php_filehost/index.php
 sed -i 's/\(ADMIN_EMAIL=\).*;/\1"'${ADMIN_EMAIL}'";/' /srv/single_php_filehost/index.php
+sed -i 's/\(AUTO_FILE_EXT=\).*;/\1"'${AUTO_FILE_EXT}'";/' /srv/single_php_filehost/index.php
 
 sed -i 's/\(upload_max_filesize\) *=.*/\1='${MAX_FILESIZE}'M/' /etc/php8/php.ini
 sed -i 's/\(max_file_uploads\) *=.*/\1=1/' /etc/php8/php.ini
