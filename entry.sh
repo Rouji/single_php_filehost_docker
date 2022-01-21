@@ -26,4 +26,6 @@ sed -i 's/\(max_execution_time\) *=.*/\1='${UPLOAD_TIMEOUT}'/' /etc/php8/php.ini
 
 sed -i 's/\(user\).*/\1=nginx/' /etc/php8/php-fpm.d/www.conf
 
+sed -i "s/\(client_max_body_size\)[^;]*/\1 ${MAX_FILESIZE}m/" /etc/nginx/nginx.conf
+
 exec /usr/bin/supervisord -c /etc/supervisord.conf
