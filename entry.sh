@@ -28,4 +28,7 @@ sed -i 's/\(user\).*/\1=nginx/' /etc/php8/php-fpm.d/www.conf
 
 sed -i "s/\(client_max_body_size\)[^;]*/\1 ${MAX_FILESIZE}m/" /etc/nginx/nginx.conf
 
+chown -R nginx:nobody /srv/single_php_filehost/files
+chmod -R u=rwX,g=,o= /srv/single_php_filehost/files
+
 exec /usr/bin/supervisord -c /etc/supervisord.conf
