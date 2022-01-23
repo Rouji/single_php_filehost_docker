@@ -10,13 +10,13 @@
 
 sed -i 's/\(server_name\).*;/\1 '${SERVER_NAME}';/' /etc/nginx/http.d/single_php_filehost.conf
 
-sed -i "4,18 s/\(MAX_FILESIZE\)[^;]*/\1 = ${MAX_FILESIZE}/" /srv/single_php_filehost/index.php
-sed -i "4,18 s/\(MIN_FILEAGE\)[^;]*/\1 = ${MIN_FILEAGE}/" /srv/single_php_filehost/index.php
-sed -i "4,18 s/\(MAX_FILEAGE\)[^;]*/\1 = ${MAX_FILEAGE}/" /srv/single_php_filehost/index.php
-sed -i "4,18 s/\(UPLOAD_TIMEOUT\)[^;]*/\1 = ${UPLOAD_TIMEOUT}/" /srv/single_php_filehost/index.php
-sed -i "4,18 s/\(ID_LENGTH\)[^;]*/\1 = ${ID_LENGTH}/" /srv/single_php_filehost/index.php
-sed -i "4,18 s/\(ADMIN_EMAIL\)[^;]*/\1 = \'${ADMIN_EMAIL}\'/" /srv/single_php_filehost/index.php
-sed -i "4,18 s/\(AUTO_FILE_EXT\)[^;]*/\1 = ${AUTO_FILE_EXT}/" /srv/single_php_filehost/index.php
+sed -i "s/\(const MAX_FILESIZE\)[^;]*/\1 = ${MAX_FILESIZE}/" /srv/single_php_filehost/index.php
+sed -i "s/\(const MIN_FILEAGE\)[^;]*/\1 = ${MIN_FILEAGE}/" /srv/single_php_filehost/index.php
+sed -i "s/\(const MAX_FILEAGE\)[^;]*/\1 = ${MAX_FILEAGE}/" /srv/single_php_filehost/index.php
+sed -i "s/\(const UPLOAD_TIMEOUT\)[^;]*/\1 = ${UPLOAD_TIMEOUT}/" /srv/single_php_filehost/index.php
+sed -i "s/\(const ID_LENGTH\)[^;]*/\1 = ${ID_LENGTH}/" /srv/single_php_filehost/index.php
+sed -i "s/\(const ADMIN_EMAIL\)[^;]*/\1 = \'${ADMIN_EMAIL}\'/" /srv/single_php_filehost/index.php
+sed -i "s/\(const AUTO_FILE_EXT\)[^;]*/\1 = ${AUTO_FILE_EXT}/" /srv/single_php_filehost/index.php
 
 sed -i 's/\(upload_max_filesize\) *=.*/\1='${MAX_FILESIZE}'M/' /etc/php8/php.ini
 sed -i 's/\(max_file_uploads\) *=.*/\1=1/' /etc/php8/php.ini
