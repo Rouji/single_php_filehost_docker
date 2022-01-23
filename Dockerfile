@@ -13,4 +13,7 @@ RUN apk add git nginx php8-fpm php8-fileinfo supervisor \
 COPY vhost.conf /etc/nginx/http.d/single_php_filehost.conf
 COPY supervisord.conf /etc/supervisord.conf
 
+VOLUME /srv/single_php_filehost/files
+EXPOSE 80
+
 ENTRYPOINT ["/entry.sh"]
