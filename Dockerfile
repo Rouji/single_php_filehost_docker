@@ -8,7 +8,8 @@ RUN apk add git nginx php8-fpm php8-fileinfo supervisor \
  && mkdir /srv/single_php_filehost/files \
  && chown -R nginx:nobody /srv/single_php_filehost && chmod -R u=rwX,g=,o= /srv/single_php_filehost \
  && rm /etc/nginx/http.d/default.conf \
- && chmod o+x /entry.sh \
+ && echo "#!/bin/sh\n/usr/bin/php8 /srv/single_php_filehost/index.php purge" > /etc/periodic/daily/purge && chmod u+x /etc/periodic/daily/purge\
+ && chmod u+x /entry.sh \
  && apk del git && rm -rf /var/cache/apk/*
 
 COPY vhost.conf /etc/nginx/http.d/single_php_filehost.conf
