@@ -8,6 +8,6 @@ docker run -d -p 8080:80 \
     -e MAX_FILEAGE=10 \
     -e UPLOAD_TIMEOUT=60 \
     -e ADMIN_EMAIL=noreply@example.com \
-    -v /path/to/files:/srv/single_php_filehost/files \
+    -v /path/to/files:/files \
     single_php_filehost
 ```

@@ -17,6 +17,7 @@ sed -i "s/\(const UPLOAD_TIMEOUT\)[^;]*/\1 = ${UPLOAD_TIMEOUT}/" /srv/single_php
 sed -i "s/\(const ID_LENGTH\)[^;]*/\1 = ${ID_LENGTH}/" /srv/single_php_filehost/index.php
 sed -i "s/\(const ADMIN_EMAIL\)[^;]*/\1 = \'${ADMIN_EMAIL}\'/" /srv/single_php_filehost/index.php
 sed -i "s/\(const AUTO_FILE_EXT\)[^;]*/\1 = ${AUTO_FILE_EXT}/" /srv/single_php_filehost/index.php
+sed -i "s/\(const STORE_PATH\)[^;]*/\1 = '\/files\/'/" /srv/single_php_filehost/index.php
 
 sed -i 's/\(upload_max_filesize\) *=.*/\1='${MAX_FILESIZE}'M/' /etc/php8/php.ini
 sed -i 's/\(max_file_uploads\) *=.*/\1=1/' /etc/php8/php.ini
@@ -28,7 +29,8 @@ sed -i 's/\(user\).*/\1=nginx/' /etc/php8/php-fpm.d/www.conf
 
 sed -i "s/\(client_max_body_size\)[^;]*/\1 ${MAX_FILESIZE}m/" /etc/nginx/nginx.conf
 
-chown -R nginx:nobody /srv/single_php_filehost/files
-chmod -R u=rwX,g=,o= /srv/single_php_filehost/files
+mkdir -p /files
+chown -R nginx:nobody /files
+chmod -R u=rwX,g=,o= /files
 
 exec /usr/bin/supervisord -c /etc/supervisord.conf
