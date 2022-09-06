@@ -9,6 +9,7 @@
 [ -z "$AUTO_FILE_EXT" ]  && AUTO_FILE_EXT=false
 
 [ -n "$REVERSE_PROXY" ]  && sed -i "s|###RPROXY_GOES_HERE###|real_ip_header X-Forwarded-For; real_ip_recursive on; set_real_ip_from $REVERSE_PROXY;|" /etc/nginx/http.d/single_php_filehost.conf
+[ -n "$FORCE_HTTPS" ]  && sed -i "s/###HTTPS_GOES_HERE###/fastcgi_param HTTPS 'on';/" /etc/nginx/http.d/single_php_filehost.conf
 
 sed -i 's/\(server_name\).*;/\1 '${SERVER_NAME}';/' /etc/nginx/http.d/single_php_filehost.conf
 
