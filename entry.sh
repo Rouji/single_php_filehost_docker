@@ -21,6 +21,7 @@ sed -i "s/\(const ID_LENGTH\)[^;]*/\1 = ${ID_LENGTH}/" /srv/single_php_filehost/
 sed -i "s/\(const ADMIN_EMAIL\)[^;]*/\1 = \'${ADMIN_EMAIL}\'/" /srv/single_php_filehost/index.php
 sed -i "s/\(const AUTO_FILE_EXT\)[^;]*/\1 = ${AUTO_FILE_EXT}/" /srv/single_php_filehost/index.php
 sed -i "s/\(const STORE_PATH\)[^;]*/\1 = '\/files\/'/" /srv/single_php_filehost/index.php
+[ -n "$LOG_PATH" ] && sed -i "s|\(const LOG_PATH\)[^;]*|\1 = '${LOG_PATH}'|" /srv/single_php_filehost/index.php
 
 sed -i 's/\(upload_max_filesize\) *=.*/\1='${MAX_FILESIZE}'M/' /etc/php8/php.ini
 sed -i 's/\(max_file_uploads\) *=.*/\1=1/' /etc/php8/php.ini
@@ -35,5 +36,6 @@ sed -i "s/\(client_max_body_size\)[^;]*/\1 ${MAX_FILESIZE}m/" /etc/nginx/nginx.c
 mkdir -p /files
 chown -R nginx:nobody /files
 chmod -R u=rwX,g=,o= /files
+[ -n "$LOG_PATH" ] && touch "$LOG_PATH" && chown nginx:nobody "$LOG_PATH" && chmod u=rwX,g=,o= "$LOG_PATH"
 
 exec /usr/bin/supervisord -c /etc/supervisord.conf
