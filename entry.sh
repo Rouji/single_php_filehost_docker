@@ -22,6 +22,7 @@ sed -i "s/\(const ADMIN_EMAIL\)[^;]*/\1 = \'${ADMIN_EMAIL}\'/" /srv/single_php_f
 sed -i "s/\(const AUTO_FILE_EXT\)[^;]*/\1 = ${AUTO_FILE_EXT}/" /srv/single_php_filehost/index.php
 sed -i "s/\(const STORE_PATH\)[^;]*/\1 = '\/files\/'/" /srv/single_php_filehost/index.php
 [ -n "$LOG_PATH" ] && sed -i "s|\(const LOG_PATH\)[^;]*|\1 = '${LOG_PATH}'|" /srv/single_php_filehost/index.php
+[ -n "$EXTERNAL_HOOK" ] && sed -i "s|\(const EXTERNAL_HOOK\)[^;]*|\1 = '${EXTERNAL_HOOK}'|" /srv/single_php_filehost/index.php
 
 sed -i 's/\(upload_max_filesize\) *=.*/\1='${MAX_FILESIZE}'M/' /etc/php8/php.ini
 sed -i 's/\(max_file_uploads\) *=.*/\1=1/' /etc/php8/php.ini
