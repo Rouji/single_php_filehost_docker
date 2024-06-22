@@ -26,13 +26,13 @@ sed -i "s/\(const STORE_PATH\)[^;]*/\1 = '\/files\/'/" /srv/single_php_filehost/
 [ -n "$LOG_PATH" ] && sed -i "s|\(const LOG_PATH\)[^;]*|\1 = '${LOG_PATH}'|" /srv/single_php_filehost/index.php
 [ -n "$EXTERNAL_HOOK" ] && sed -i "s|\(const EXTERNAL_HOOK\)[^;]*|\1 = '${EXTERNAL_HOOK}'|" /srv/single_php_filehost/index.php
 
-sed -i 's/\(upload_max_filesize\) *=.*/\1='${MAX_FILESIZE}'M/' /etc/php82/php.ini
-sed -i 's/\(max_file_uploads\) *=.*/\1=1/' /etc/php82/php.ini
-sed -i 's/\(post_max_size\) *=.*/\1='${MAX_FILESIZE}'M/' /etc/php82/php.ini
-sed -i 's/\(max_input_time\) *=.*/\1='${UPLOAD_TIMEOUT}'/' /etc/php82/php.ini
-sed -i 's/\(max_execution_time\) *=.*/\1='${UPLOAD_TIMEOUT}'/' /etc/php82/php.ini
+sed -i 's/\(upload_max_filesize\) *=.*/\1='${MAX_FILESIZE}'M/' /etc/php83/php.ini
+sed -i 's/\(max_file_uploads\) *=.*/\1=1/' /etc/php83/php.ini
+sed -i 's/\(post_max_size\) *=.*/\1='${MAX_FILESIZE}'M/' /etc/php83/php.ini
+sed -i 's/\(max_input_time\) *=.*/\1='${UPLOAD_TIMEOUT}'/' /etc/php83/php.ini
+sed -i 's/\(max_execution_time\) *=.*/\1='${UPLOAD_TIMEOUT}'/' /etc/php83/php.ini
 
-sed -i 's/\(user\).*/\1=nginx/' /etc/php82/php-fpm.d/www.conf
+sed -i 's/\(user\).*/\1=nginx/' /etc/php83/php-fpm.d/www.conf
 
 sed -i "s/\(client_max_body_size\)[^;]*/\1 ${MAX_FILESIZE}m/" /etc/nginx/nginx.conf
 
