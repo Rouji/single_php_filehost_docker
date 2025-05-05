@@ -11,6 +11,7 @@
 
 [ -n "$REVERSE_PROXY" ]  && sed -i "s|###RPROXY_GOES_HERE###|real_ip_header X-Forwarded-For; real_ip_recursive on; set_real_ip_from $REVERSE_PROXY;|" /etc/nginx/http.d/single_php_filehost.conf
 [ -n "$FORCE_HTTPS" ]  && sed -i "s/###HTTPS_GOES_HERE###/fastcgi_param HTTPS 'on';/" /etc/nginx/http.d/single_php_filehost.conf
+sed -i "s/###HOST_OVERRIDE_GOES_HERE###/fastcgi_param HTTP_HOST $SERVER_NAME; fastcgi_param SERVER_NAME $SERVER_NAME;/" /etc/nginx/http.d/single_php_filehost.conf
 
 sed -i 's/\(server_name\).*;/\1 '${SERVER_NAME}';/' /etc/nginx/http.d/single_php_filehost.conf
 
@@ -26,13 +27,13 @@ sed -i "s/\(const STORE_PATH\)[^;]*/\1 = '\/files\/'/" /srv/single_php_filehost/
 [ -n "$LOG_PATH" ] && sed -i "s|\(const LOG_PATH\)[^;]*|\1 = '${LOG_PATH}'|" /srv/single_php_filehost/index.php
 [ -n "$EXTERNAL_HOOK" ] && sed -i "s|\(const EXTERNAL_HOOK\)[^;]*|\1 = '${EXTERNAL_HOOK}'|" /srv/single_php_filehost/index.php
 
-sed -i 's/\(upload_max_filesize\) *=.*/\1='${MAX_FILESIZE}'M/' /etc/php83/php.ini
-sed -i 's/\(max_file_uploads\) *=.*/\1=1/' /etc/php83/php.ini
-sed -i 's/\(post_max_size\) *=.*/\1='${MAX_FILESIZE}'M/' /etc/php83/php.ini
-sed -i 's/\(max_input_time\) *=.*/\1='${UPLOAD_TIMEOUT}'/' /etc/php83/php.ini
-sed -i 's/\(max_execution_time\) *=.*/\1='${UPLOAD_TIMEOUT}'/' /etc/php83/php.ini
+sed -i 's/\(upload_max_filesize\) *=.*/\1='${MAX_FILESIZE}'M/' /etc/php84/php.ini
+sed -i 's/\(max_file_uploads\) *=.*/\1=1/' /etc/php84/php.ini
+sed -i 's/\(post_max_size\) *=.*/\1='${MAX_FILESIZE}'M/' /etc/php84/php.ini
+sed -i 's/\(max_input_time\) *=.*/\1='${UPLOAD_TIMEOUT}'/' /etc/php84/php.ini
+sed -i 's/\(max_execution_time\) *=.*/\1='${UPLOAD_TIMEOUT}'/' /etc/php84/php.ini
 
-sed -i 's/\(user\).*/\1=nginx/' /etc/php83/php-fpm.d/www.conf
+sed -i 's/\(user\).*/\1=nginx/' /etc/php84/php-fpm.d/www.conf
 
 sed -i "s/\(client_max_body_size\)[^;]*/\1 ${MAX_FILESIZE}m/" /etc/nginx/nginx.conf
 
