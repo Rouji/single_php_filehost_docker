@@ -8,6 +8,7 @@
 [ -z "$MAX_ID_LENGTH" ]  && MAX_ID_LENGTH=24
 [ -z "$ADMIN_EMAIL" ]    && ADMIN_EMAIL="admin@example.com"
 [ -z "$AUTO_FILE_EXT" ]  && AUTO_FILE_EXT=false
+[ -z "$STORE_PATH" ]     && STORE_PATH="/files/"
 
 [ -n "$REVERSE_PROXY" ]  && sed -i "s|###RPROXY_GOES_HERE###|real_ip_header X-Forwarded-For; real_ip_recursive on; set_real_ip_from $REVERSE_PROXY;|" /etc/nginx/http.d/single_php_filehost.conf
 [ -n "$FORCE_HTTPS" ]  && sed -i "s/###HTTPS_GOES_HERE###/fastcgi_param HTTPS 'on';/" /etc/nginx/http.d/single_php_filehost.conf
@@ -23,7 +24,7 @@ sed -i "s/\(const MIN_ID_LENGTH\)[^;]*/\1 = ${MIN_ID_LENGTH}/" /srv/single_php_f
 sed -i "s/\(const MAX_ID_LENGTH\)[^;]*/\1 = ${MAX_ID_LENGTH}/" /srv/single_php_filehost/index.php
 sed -i "s/\(const ADMIN_EMAIL\)[^;]*/\1 = \'${ADMIN_EMAIL}\'/" /srv/single_php_filehost/index.php
 sed -i "s/\(const AUTO_FILE_EXT\)[^;]*/\1 = ${AUTO_FILE_EXT}/" /srv/single_php_filehost/index.php
-sed -i "s/\(const STORE_PATH\)[^;]*/\1 = '\/files\/'/" /srv/single_php_filehost/index.php
+sed -i "s|\(const STORE_PATH\)[^;]*|\1 = \"${STORE_PATH}\"|" /srv/single_php_filehost/index.php
 [ -n "$LOG_PATH" ] && sed -i "s|\(const LOG_PATH\)[^;]*|\1 = '${LOG_PATH}'|" /srv/single_php_filehost/index.php
 [ -n "$EXTERNAL_HOOK" ] && sed -i "s|\(const EXTERNAL_HOOK\)[^;]*|\1 = '${EXTERNAL_HOOK}'|" /srv/single_php_filehost/index.php
 
