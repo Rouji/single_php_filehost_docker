@@ -38,9 +38,6 @@ sed -i 's/\(user\).*/\1=nginx/' /etc/php84/php-fpm.d/www.conf
 
 sed -i "s/\(client_max_body_size\)[^;]*/\1 ${MAX_FILESIZE}m/" /etc/nginx/nginx.conf
 
-mkdir -p /files
-chown -R nginx:nobody /files
-chmod -R u=rwX,g=,o= /files
 [ -n "$LOG_PATH" ] && touch "$LOG_PATH" && chown nginx:nobody "$LOG_PATH" && chmod u=rwX,g=,o= "$LOG_PATH"
 
 exec /usr/bin/supervisord -c /etc/supervisord.conf
